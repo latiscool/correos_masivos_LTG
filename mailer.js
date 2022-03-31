@@ -39,7 +39,7 @@ let send = (to, subject, html) => {
       const euro = data.data.euro.valor;
       const uf = data.data.uf.valor;
       const utm = data.data.utm.valor;
-      const templateIndicadores = `
+      const template = `
         <br>
         <p> El valor del dolar el día de hoy es: ${dolar} </p>
         <p> El valor del euro el día de hoy es: ${euro} </p>
@@ -50,7 +50,7 @@ let send = (to, subject, html) => {
         from: process.env.EMAIL_USER,
         to,
         subject,
-        html: html + templateIndicadores,
+        html: html + template,
       };
 
       //  Invoca el método sendMail de la instancia transporter pasándole como
