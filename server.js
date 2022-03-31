@@ -3,8 +3,9 @@ const send = require('./mailer.js');
 const url = require('url');
 const http = require('http');
 const fs = require('fs');
-const enviar = require('./tets.js');
 require('dotenv').config();
+const { v4: uuidv4 } = require('uuid');
+// const axios = require('axios');
 
 const requestListener = (req, res) => {
   // Guardar en variables los parámetros “para”, “asunto” y “contenido”
@@ -30,9 +31,25 @@ const requestListener = (req, res) => {
 
     correos !== '' && asunto !== '' && contenido !== '' && correos.includes(',')
       ? send(correos.split(','), asunto, contenido)
-      : res.write(
-          'Faltan campos por llenar o se está intentando uncorreo con solo 1 dirección'
+      : res.end(
+          'Debes completar todos los campos y/o enviar a mas de 1 destinatario de correo'
         );
+
+    let idEmail = uuidv4().slice(0, 6);
+    //Guardar en la carpeta correos los correos con un id y los correos
+    fs.writeFile(
+      `./correos/id_${idEmail}_-_${correos}_-_.txt`,
+      correos,
+      'utf-8',
+      (err, data) => {
+        if (err) {
+          res.end(`<h2>Ups..!Lo sentimos ha ocurrido un erro : ${err}</h2>`);
+        } else {
+          res.end(`<h2>"Se han enviado con exitos los correos.!</h2>`);
+          console.log('Se han enviado con exitos los correos');
+        }
+      }
+    );
   }
 };
 
