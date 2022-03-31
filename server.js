@@ -57,10 +57,10 @@ const requestListener = (req, res) => {
         'utf-8',
         (err, data) => {
           if (err) {
-            res.end(`<h2>Ups..!Lo sentimos ha ocurrido un erro : ${err}</h2>`);
+            res.end(`<h2>Ups..!Lo sentimos ha ocurrido un error : ${err}</h2>`);
           } else {
-            res.end(`<h2>"Se han enviado con exitos los correos.!</h2>`);
-            console.log('Se han enviado con exitos los correos');
+            res.end(`<h2>"Se han enviado con exito los correos.!</h2>`);
+            console.log('Se han enviado con exito los correos');
           }
         }
       );
